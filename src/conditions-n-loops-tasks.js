@@ -84,8 +84,14 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  let result = false;
+  const arr = [a, b, c];
+  arr.sort();
+  if (arr[0] + arr[1] > arr[2]) {
+    result = true;
+  }
+  return result;
 }
 
 /**
@@ -101,8 +107,38 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  // const romes = {
+  //   X: 10,
+  //   IX: 9,
+  //   V: 5,
+  //   IV: 4,
+  //   I: 1,
+  // };
+  let result = '';
+  if (!Number.isNaN(num) || num <= 39 || num >= 1) {
+    while (num <= 39) {
+      if (num < 4) {
+        result += 'I';
+        num -= 1;
+      } else if (num === 4) {
+        result += 'IV';
+        num -= 4;
+      } else if (num >= 5 && num < 9) {
+        result += 'V';
+        num -= 5;
+      } else if (num === 9) {
+        result += 'IX';
+        num -= 9;
+      } else if (num >= 10) {
+        result += 'X';
+        num -= 10;
+      } else {
+        num -= 1;
+      }
+    }
+  }
+  return result;
 }
 
 /**
@@ -135,8 +171,11 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const len = Math.floor(str.length / 2);
+  for (let i = 0; i < len; i += 1) {
+    if (str[i] === str[str.length - 1 - i]) return true;
+  }
 }
 
 /**
