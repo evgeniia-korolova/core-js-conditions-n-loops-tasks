@@ -86,13 +86,11 @@ function canQueenCaptureKing(/* queen, king */) {
  *  3, 0, 3   => false
  */
 function isIsoscelesTriangle(a, b, c) {
-  let result = false;
-  const arr = [a, b, c];
-  arr.sort();
-  if (arr[0] + arr[1] > arr[2]) {
-    result = true;
-  }
-  return result;
+  if (a <= 0 || b <= 0 || c <= 0) return false;
+  if (a === b && a + b >= c) return true;
+  if (a === c && a + c >= b) return true;
+  if (b === c && b + c >= a) return true;
+  return false;
 }
 
 /**
@@ -110,34 +108,36 @@ function isIsoscelesTriangle(a, b, c) {
  *  26  => XXVI
  */
 function convertToRomanNumerals(num) {
-  // const romes = {
-  //   X: 10,
-  //   IX: 9,
-  //   V: 5,
-  //   IV: 4,
-  //   I: 1,
-  // };
   let result = '';
-  if (!Number.isNaN(num) || num <= 39 || num >= 1) {
-    while (num <= 39) {
-      if (num < 4) {
-        result += 'I';
-        num -= 1;
-      } else if (num === 4) {
-        result += 'IV';
-        num -= 4;
-      } else if (num >= 5 && num < 9) {
-        result += 'V';
-        num -= 5;
-      } else if (num === 9) {
-        result += 'IX';
-        num -= 9;
-      } else if (num >= 10) {
-        result += 'X';
-        num -= 10;
-      } else {
-        num -= 1;
-      }
+  let number = num;
+  const romes = {
+    1: 'I',
+    2: 'II',
+    3: 'III',
+    4: 'IV',
+    5: 'V',
+    6: 'VI',
+    7: 'VII',
+    8: 'VIII',
+    9: 'IX',
+    10: 'X',
+  };
+
+  if (number >= 10 && number < 20) {
+    number -= 10;
+    result += 'X';
+  } else if (number >= 20 && number < 30) {
+    number -= 20;
+    result += 'XX';
+  } else if (number >= 30 && number < 40) {
+    number -= 30;
+    result += 'XXX';
+  }
+
+  for (let i = 1; i <= 10; i += 1) {
+    if (i === number) {
+      result += romes[i];
+      break;
     }
   }
   return result;
@@ -177,8 +177,12 @@ function convertNumberToString(/* numberStr */) {
 function isPalindrome(str) {
   const len = Math.floor(str.length / 2);
   for (let i = 0; i < len; i += 1) {
-    if (str[i] === str[str.length - 1 - i]) return true;
+    const k = str.length - 1 - i;
+    if (str[i] !== str[k]) {
+      return false;
+    }
   }
+  return true;
 }
 
 /**
